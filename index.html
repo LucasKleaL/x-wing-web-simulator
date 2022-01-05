@@ -1,0 +1,71 @@
+<html>
+
+    <head>
+        <title>X-Wing Web Simulator</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="public/favicon.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/global.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+
+    <body>
+
+        <header>
+
+        </header>
+
+        <div class="div-container">
+
+            <div style="display: block; margin-top: 2rem; width: 100%;">
+            
+                <div>
+                    <button class="hidden-start-button" id="startButton" onclick="startGame()">START</button>
+
+                    <div class="turn-div">
+
+                        <h1 class="h1-turn-cenario">Tie-Fighter atacando</h1>
+
+                        <div style="display: flex;">
+
+                            <div class="div-turn-bar">
+                                <div class="turn-progress-bar"></div>
+                            </div>
+
+                            <p class="p-turn-time">10s</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            
+                <div>
+                    <img src="public/img/trasparent_x-wing.png" class="x-wing-img" />
+                </div>
+
+                <div class="life-bar">
+                    <div class="life-point" id="lifePoint1" style="border-top-left-radius: 10px;"></div>
+                    <div class="life-point" id="lifePoint2" style="margin-left: 0.5rem; margin-right: 0.5rem;"></div>
+                    <div class="life-point" id="lifePoint3" style="border-top-right-radius: 10px;"></div>
+                </div>
+            
+                <div class="controls-bar">
+            
+                    <button class="hidden-control-button" id="controlButton1" style="background-color: var(--red-fire);">1. Atirar</button>
+                    <button class="hidden-control-button" id="controlButton2" style="background-color: var(--light-blue); margin-left: 1rem; margin-right: 1rem;">2. Desviar</button>
+                    <button class="hidden-control-button" id="controlButton3" style="background-color: var(--pink-purple);">3. Acelerar</button>
+            
+                </div>
+            
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
