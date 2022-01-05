@@ -24,21 +24,24 @@
             <div style="display: block; margin-top: 2rem; width: 100%;">
             
                 <div>
-                    <button class="hidden-start-button" id="startButton" onclick="startGame()">START</button>
+
+                    <button class="start-button" id="startButton" onclick="startGame()">START</button>
 
                     <div class="turn-div">
 
-                        <h1 class="h1-turn-cenario">Tie-Fighter atacando</h1>
+                        <h1 class="hidden-h1-turn-cenario" id="h1TurnCenario"></h1>
 
                         <div style="display: flex;">
 
-                            <div class="div-turn-bar">
-                                <div class="turn-progress-bar"></div>
+                            <div class="hidden-div-turn-bar" id="divTurnBar">
+                                <div class="turn-progress-bar" id="turnProgressBar" style="width: 100%;"></div>
                             </div>
 
-                            <p class="p-turn-time">10s</p>
+                            <p class="hidden-p-turn-time" id="pTurnTime"></p>
 
                         </div>
+
+                        <p class="p-turn-result" id="pTurnResult"></p>
 
                     </div>
 
@@ -56,9 +59,9 @@
             
                 <div class="controls-bar">
             
-                    <button class="hidden-control-button" id="controlButton1" style="background-color: var(--red-fire);">1. Atirar</button>
-                    <button class="hidden-control-button" id="controlButton2" style="background-color: var(--light-blue); margin-left: 1rem; margin-right: 1rem;">2. Desviar</button>
-                    <button class="hidden-control-button" id="controlButton3" style="background-color: var(--pink-purple);">3. Acelerar</button>
+                    <button class="hidden-control-button" id="controlButton1" style="background-color: var(--red-fire);" onclick="atirar()">1. Atirar</button>
+                    <button class="hidden-control-button" id="controlButton2" style="background-color: var(--light-blue); margin-left: 1rem; margin-right: 1rem;" onclick="desviar()">2. Desviar</button>
+                    <button class="hidden-control-button" id="controlButton3" style="background-color: var(--pink-purple);" onclick="acelerar()">3. Acelerar</button>
             
                 </div>
             
