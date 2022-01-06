@@ -3,6 +3,8 @@ var lifes = 3;
 var actualTurnTime;
 var actualCenario;
 var interval;
+var username;
+var isOnline;
 
 const cenarios = [
     "Tie-Fighter atacando",
@@ -13,11 +15,26 @@ const cenarios = [
 
 $(document).ready(function() {
 
-    //
+    username = window.localStorage.getItem("username");
+    isOnline = window.localStorage.getItem("isOnline");
+
+    if (!username) {
+        let aux = window.prompt("Insira o nome de usuário: ");
+        window.localStorage.setItem("username", aux);
+    }
+    if (!isOnline) {
+        window.localStorage.setItem("isOnline", true);
+    }
 
 });
 
 function startGame() {
+
+    //se o modo online estiver ativo, irá armazenar os dados do usuário no banco de dados
+    if (isOnline) {
+        ajaxSetNewUser();
+        ajaxAddStartedGame();
+    }
 
     //número aleatório que irá determinar qual cenário será apresentado
     var random = Math.round(getRandomInt(0, 6) / 2);
@@ -63,6 +80,8 @@ function vidaPerdida() {
     lifes--;
     console.log("-1 vida")
 
+    ajaxAddVidaPerdida();
+
     if (lifes === 2) {
         $("#lifePoint3").removeClass("life-point").addClass("life-point-lost");
     }
@@ -84,14 +103,17 @@ function vidaPerdida() {
 
 function atirar() {
 
-    console.log("atirar")
+    ajaxAddShotFired();
     
     if (actualCenario === "Canhão de Plasma atacando") {
+        ajaxPonto();
         $("#pTurnResult").text("X-Wing revidou com sucesso! Prosseguindo para o próximo turno.");
         clearInterval(interval);
         startGame();
     }
     else if (actualCenario === "Ponto fraco à frente") {
+        ajaxPonto();
+        ajaxJogoGanho();
         $("#pTurnResult").text("X-Wing atingiu o ponto fraco com sucesso! Jogo finalizado.");
         alert("GG! Você derrotou a Estrela da Morte com uma X-Wing!")
         clearInterval(interval);
@@ -128,6 +150,7 @@ function desviar() {
         alert("Você perdeu a chance de atirar no ponto fraco, uma vida foi perdida.")
     }
     else if (actualCenario === "Tie-Fighter atacando") {
+        $ajaxPonto();
         $("#pTurnResult").text("Tie-Fighter desviado, prosseguindo para o próximo turno.");
         clearInterval(interval);
         startGame();
@@ -162,6 +185,7 @@ function acelerar() {
         alert("Você desviou do ataque de Tie-Fighter, uma vida foi perdida.")
     }
     else if (actualCenario === "Corredor livre") {
+        ajaxPonto();
         $("#pTurnResult").text("Você aproveitou o corredor livre e acelerou, prosseguindo para o próximo turno.");
         clearInterval(interval);
         startGame();
@@ -173,4 +197,133 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function ajaxSetNewUser() {
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        url: "../php/setNewUser.php",
+        success: function (response_array) {
+            if (response_array.status === "successful") {
+                console.log("ajax setNewUser has submited a new user to database successful");
+            }
+            else if (response_array.status === "registered"){
+                console.log("ajax setNewUser has found a user with this nickname")
+            }
+            else {
+                console.log("ajax setNewUser error")
+            }
+
+        }
+        
+    })
+}
+
+function ajaxAddStartedGame() {
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        url: "../php/addStartedGame.php",
+        success: function (response_array) {
+            if (response_array.status === "successful") {
+                console.log("ajax addStartedGame has increased by 1");
+            }
+            else {
+                console.log("ajax addStartedGame error");
+            }
+
+        }
+        
+    })
+}
+
+function ajaxAddShotFired() {
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        url: "../php/addTiroDisparado.php",
+        success: function (response_array) {
+            if (response_array.status === "successful") {
+                console.log("ajax addShotFired has increased by 1");
+            }
+            else {
+                console.log("ajax addShotFired error");
+            }
+
+        }
+        
+    })
+}
+
+function ajaxAddVidaPerdida() {
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        url: "../php/addVidaPerdida.php",
+        success: function (response_array) {
+            if (response_array.status === "successful") {
+                console.log("ajax addVidaPerdida has increased by 1");
+            }
+            else {
+                console.log("ajax addPerdida error");
+            }
+
+        }
+        
+    })
+}
+
+function ajaxPonto() {
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        url: "../php/addPonto.php",
+        success: function (response_array) {
+            if (response_array.status === "successful") {
+                console.log("ajax addPonto has increased by 1");
+            }
+            else {
+                console.log("ajax addPonto error");
+            }
+
+        }
+        
+    })
+}
+
+function ajaxJogoGanho() {
+    $.ajax({
+        type: "POST",
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        url: "../php/addJogoGanho.php",
+        success: function (response_array) {
+            if (response_array.status === "successful") {
+                console.log("ajax addJogoGanho has increased by 1");
+            }
+            else {
+                console.log("ajax addJogoGanho error");
+            }
+
+        }
+        
+    })
 }
