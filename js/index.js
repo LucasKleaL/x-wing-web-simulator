@@ -150,7 +150,7 @@ function desviar() {
         alert("Você perdeu a chance de atirar no ponto fraco, uma vida foi perdida.")
     }
     else if (actualCenario === "Tie-Fighter atacando") {
-        $ajaxPonto();
+        ajaxPonto();
         $("#pTurnResult").text("Tie-Fighter desviado, prosseguindo para o próximo turno.");
         clearInterval(interval);
         startGame();

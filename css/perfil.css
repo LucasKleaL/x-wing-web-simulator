@@ -1,0 +1,18 @@
+
+.h1-perfil {
+    font-size: 2rem;
+    color: var(--white);
+    font-size: bold;
+}
+
+.h2-stats-title {
+    font-size: 1.5rem;
+    color: var(--white);
+    font-size: bold;
+}
+
+.p-stats-value {
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-left: 0.5rem;
+}
